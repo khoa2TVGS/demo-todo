@@ -1,0 +1,20 @@
+(app) Todos page:
+- Move New To-Do Form to Bottom of the page (could set sticky). Only show minimal Title input, when user click in will auto expand to fully form. Add a Collapse Button to switch to minimal Title input (and Expand button to expand back to form).
+- About completed todos, if it's completed then use gray-out it (could use filter-grayscale). After 3s, if user don't uncomplete it then let it slowly fade away (in 1s) and send it to completed category (clear from All To-do list to let user focus on uncomplete one)
+- Talk about category, can we add tag system to this to-do? After look from an example (.e.g Microsoft Todo), i see those have type tag: Important, Planned, All, Completed, Assigned to me, Task,... more. And group tag (user create these tag) like Todo For Home, Todo for Works,...
+
+(app) Dashboard page:
+
+(app) Profile page:
+- Allow user to change password.
+- I current don't have any idea for this. Gemini can you recommend anything?
+
+(app) Setting page:
+- Right now, just add a Setting to allow user change between dark mode and light mode (default).
+
+(Public) Home page:
+- Create a home page, that introduce about our app, we can just quick Introduce main features of app.
+- Right now, i see slack.com intro page is kind of a good example!
+
+Overall:
+- Adding Dark mode (by default use white mode, user can change in setting page).
