@@ -207,10 +207,9 @@
 			const data = await response.json();
 
 			if (response.ok) {
-				// Clear local storage and redirect to login
-				localStorage.removeItem('token');
-				localStorage.removeItem('user');
-				goto('/login');
+				// Account deleted successfully - session manager will handle cleanup
+				// The API response will trigger the global session expiration handling
+				return;
 			} else {
 				deleteAccountError = data.message || 'Failed to delete account';
 			}

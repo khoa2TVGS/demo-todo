@@ -64,16 +64,33 @@ async function apiFetch<T>(endpoint: string, options: RequestInit = {}): Promise
 	}
 
 	if (!response.ok) {
-		// Handle 401 Unauthorized globally - JWT expired or invalid
-		if (response.status === 401) {
-			// Clear auth state and redirect to login
-			if (typeof window !== 'undefined') {
-				localStorage.removeItem('authToken');
-				// Use window.location for immediate redirect without SvelteKit routing
-				window.location.href = '/login';
+		// Handle 401 Unauthorized and 403 Forbidden globally - JWT expired or invalid
+		if (response.status === 401 || response.status === 403) {
+			// Check if this is an email verification error for 401, don't auto-redirect in that case
+			if (response.status === 401 && responseData?.error === 'email_not_verified') {
+				// Let the login page handle email verification errors
+				const message = responseData?.message || 'Email not verified';
+				const error: any = new Error(message);
+				error.status = response.status;
+				error.data = responseData;
+				throw error;
 			}
-			throw new Error('Unauthorized - redirecting to login');
-			// console.warn('API returned 401, but automatic redirect is disabled for debugging.');
+			
+			// Only auto-redirect if there was an auth token (expired session)
+			// Don't redirect for login attempts with invalid credentials
+			const hadAuthToken = getAuthToken();
+			if (hadAuthToken && typeof window !== 'undefined') {
+				// Import session manager dynamically to avoid circular dependencies
+				const { handleSessionExpiration } = await import('./sessionManager.js');
+				return await handleSessionExpiration(response.status, responseData);
+			}
+			
+			// For login attempts without token, let the login page handle the error
+			const message = responseData?.message || responseData?.error || 'Authentication required';
+			const error: any = new Error(message);
+			error.status = response.status;
+			error.data = responseData;
+			throw error;
 		}
 		
 		const message =

@@ -20,6 +20,14 @@
         }
         goto('/register');
     }
+
+    function navigateToHome(event: Event) {
+        if (page.url.pathname === '/') {
+            event.preventDefault();
+            return;
+        }
+        goto('/');
+    }
 </script>
 
 <nav class="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
@@ -32,11 +40,12 @@
             </div>
             
             <div class="flex items-center space-x-1">
-                <a href="/" 
-                   class="px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 font-medium transition-all duration-200"
-                   class:active={page.url.pathname === '/'}>
+                <button 
+                    onclick={navigateToHome}
+                    class="px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 font-medium transition-all duration-200"
+                    class:active={page.url.pathname === '/'}>
                     Home
-                </a>
+                </button>
                 <button 
                     onclick={navigateToLogin}
                     class="px-4 py-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg font-medium transition-all duration-200"

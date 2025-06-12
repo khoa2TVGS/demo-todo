@@ -3,11 +3,16 @@
     import "../../app.css";
     import AppHeader from "$lib/components/AppHeader.svelte";
     import AppNav from '$lib/components/AppNav.svelte'; // Our main app nav (Pink+Blue)
+    import SessionExpiredModal from '$lib/components/SessionExpiredModal.svelte';
     import { getAuthToken, initializeAuthStore } from '$lib/stores.svelte'; // Use getter for token
     import { onMount } from 'svelte';
     import { goto, onNavigate } from '$app/navigation';
     import { page } from '$app/state'; // For checking current path to avoid redirect loops
 	import AppSidebar from "$lib/components/AppSidebar.svelte";
+    import {
+	sessionExpiredModal,
+	handleSessionExpiredConfirm
+} from '$lib/sessionManager.js';
 
     let { children } = $props();
     let initialAuthCheckDone = $state(false);
@@ -51,8 +56,7 @@
 
             if (isAppPath && currentPath !== '/') { // Avoid redirecting from home if home is public
                 console.log('(App Layout Effect) Auth token lost, redirecting to login from:', currentPath);
-                // Ensure clearAuth is called if it's not already handled elsewhere when token becomes invalid
-                // clearAuth(); // If needed
+                // Session manager now handles token expiration globally
                 goto('/login', { replaceState: true });
             }
         }
@@ -80,4 +84,10 @@
         </div>
     {/if}
     </div>
+    
+    <!-- Global Session Expired Modal -->
+    <SessionExpiredModal 
+	bind:isOpen={$sessionExpiredModal} 
+	on:confirm={handleSessionExpiredConfirm}
+/>
 </div>

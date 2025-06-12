@@ -1,7 +1,7 @@
 <!-- src/lib/components/Nav.svelte -->
 <script lang="ts">
-	import { getCurrentUser, clearAuth } from '$lib/stores.svelte'; // Use getters
-	import { goto } from '$app/navigation';
+	import { getCurrentUser } from '$lib/stores.svelte'; // Use getters
+    import { logout } from '$lib/sessionManager';
 	import { page } from '$app/state'; // For active link highlighting
 	import { onMount } from 'svelte';
 
@@ -50,8 +50,7 @@
 	});
 
 	function handleLogout() {
-		clearAuth();
-		goto('/login', { replaceState: true });
+		logout();
 	}
 
 	function toggleAccountMenu() {

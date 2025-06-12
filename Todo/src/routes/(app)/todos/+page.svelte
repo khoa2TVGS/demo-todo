@@ -42,9 +42,7 @@ https://svelte.dev/e/mixed_event_handler_syntaxes -->
              try {
                 await fetchTodosFromApi();
             } catch (error: any) {
-                 if (error.status === 401 || error.status === 403) {
-                    await goto('/login', { replaceState: true });
-                }
+                // Token expiration is now handled globally by the session manager
             }
         }
 	});
@@ -83,9 +81,7 @@ https://svelte.dev/e/mixed_event_handler_syntaxes -->
         } catch (error: any) {
             console.error('Failed to add todo:', error);
             formError = error.data?.message || error.message || 'Could not add to-do item.'; 
-            if (error.status === 401 || error.status === 403) {
-                await goto('/login', { replaceState: true });
-            }
+            // Token expiration is now handled globally by the session manager
         } finally {
             setIsLoadingAuth(false);
         }

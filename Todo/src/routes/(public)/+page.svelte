@@ -12,10 +12,17 @@
 	let isVisible = true;
 
 	// Check if user is already logged in
-	onMount(() => {
+	onMount(async () => {
 		if (getAuthToken()) {
-			// User is already authenticated, redirect to dashboard
-			goto('/dashboard');
+			try {
+				const { getTodos } = await import('$lib/api');
+				await getTodos();
+				goto('/dashboard');
+			} catch (error) {
+				const { clearAuth } = await import('$lib/stores.svelte');
+				clearAuth();
+				console.log('Token expired, staying on homepage');
+			}
 		}
 
 		// Start word rotation with fade animation

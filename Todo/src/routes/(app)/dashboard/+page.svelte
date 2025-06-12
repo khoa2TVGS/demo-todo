@@ -1,7 +1,8 @@
 <!-- src/routes/dashboard/+page.svelte -->
 <script lang="ts">
-	import { getCurrentUser, getAuthToken, clearAuth, getTodoList, fetchTodosFromApi, getIsLoadingTodos } from '$lib/stores.svelte';
-	import { goto } from '$app/navigation';
+	import { getCurrentUser, getAuthToken, getTodoList, fetchTodosFromApi, getIsLoadingTodos } from '$lib/stores.svelte';
+import { goto } from '$app/navigation';
+import { logout } from '$lib/sessionManager';
 	import { onMount } from 'svelte';
 	import type { Todo } from '$lib/api';
 
@@ -24,16 +25,13 @@
 			console.log('Dashboard: Todos fetched successfully, count:', getTodoList().length);
 		} catch (error: any) {
 			console.error('Dashboard: Error fetching todos:', error);
-			if (error.status === 401 || error.status === 403) {
-				await goto('/login', { replaceState: true });
-			}
+			// Token expiration is now handled globally by the session manager
 		}
 		console.log('Dashboard: Loading state after fetch:', isLoadingTodos);
 	});
 
 	function handleLogout() {
-		clearAuth();
-		goto('/login', { replaceState: true });
+		logout();
 	}
 
 	// Computed values for dashboard stats
