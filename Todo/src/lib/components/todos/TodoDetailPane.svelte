@@ -76,9 +76,7 @@
 
         setIsLoadingAuth(true);
         try {
-            await deleteTodoFromApi(todo.id); // Use store function
-            // The store update will trigger reactivity. The layout's $effect handles closing the pane if the selectedTodo is deleted.
-            // No need to explicitly call closeDetailPane() here if the layout handles it based on store changes.
+            await deleteTodoFromApi(todo.id);
         } catch (e) {
             console.error("Failed to delete todo", e);
             alert("Failed to delete. Please try again.");

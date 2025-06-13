@@ -1,4 +1,4 @@
-<!-- Homepage - Introduction to Todo Website -->
+<!-- Homepage -->
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { getAuthToken } from '$lib/stores.svelte';
@@ -25,18 +25,14 @@
 			}
 		}
 
-		// Start word rotation with fade animation
+		// fade animation logiv
 		intervalId = setInterval(() => {
-			// Fade out
 			isVisible = false;
-			
-			// Change word after fade out completes
 			setTimeout(() => {
 				currentWordIndex = (currentWordIndex + 1) % words.length;
 				currentWord = words[currentWordIndex];
-				// Fade in
 				isVisible = true;
-			}, 300); // Half of transition duration
+			}, 300);
 		}, 3000);
 	});
 
@@ -81,7 +77,7 @@
 			</div>
 
 			<!-- CTA Buttons -->
-			<div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+			<div class="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fade-in-up">
 				<button 
 					onclick={navigateToRegister}
 					class="px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-xl hover:bg-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
@@ -98,7 +94,7 @@
 
 			<!-- Features Section -->
 			<div class="grid md:grid-cols-3 gap-8 mb-16">
-				<div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200">
+				<div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200 animate-fade-in-up">
 					<div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6 mx-auto">
 						<svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
@@ -110,7 +106,7 @@
 					</p>
 				</div>
 
-				<div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200">
+				<div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200 animate-fade-in-up">
 					<div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-6 mx-auto">
 						<svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
@@ -122,7 +118,7 @@
 					</p>
 				</div>
 
-				<div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200">
+				<div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200 animate-fade-in-up">
 					<div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-6 mx-auto">
 						<svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -136,7 +132,7 @@
 			</div>
 
 			<!-- About Section -->
-			<div class="bg-white rounded-3xl p-12 shadow-sm border border-gray-100">
+			<div class="bg-white rounded-3xl p-12 shadow-sm border border-gray-100 animate-fade-in-up">
 				<h3 class="text-3xl font-bold text-gray-900 mb-6 text-center">Why Choose Our Todo App?</h3>
 				<div class="max-w-4xl mx-auto">
 					<p class="text-lg text-gray-600 leading-relaxed mb-6">
@@ -222,7 +218,7 @@
 </div>
 
 <style>
-	/* Custom animations and additional styling */
+	/* Custom animations */
 	@keyframes fadeInUp {
 		from {
 			opacity: 0;
